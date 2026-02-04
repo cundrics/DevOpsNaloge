@@ -13,28 +13,28 @@ jobs:
     steps:
       - run: echo "Hello"
 
-BE-build-test-package:
+  BE-build-test-package:
     name: BE Build & Test & Package
     runs-on: ubuntu-latest
     
-services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_DB: measdb
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
+    services:
+          postgres:
+            image: postgres:16
+            env:
+              POSTGRES_DB: measdb
+              POSTGRES_USER: postgres
+              POSTGRES_PASSWORD: postgres
+            options: >-
+              --health-cmd pg_isready
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
+            ports:
+              - 5432:5432
+            
     steps:
       - uses: actions/checkout@v3
-
+  
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
@@ -49,5 +49,5 @@ services:
       - name: Upload resulting Build package
         uses: actions/upload-artifact@v4
         with:
-        name: Package
-path: backend/target
+          name: Package
+          path: backend/target
